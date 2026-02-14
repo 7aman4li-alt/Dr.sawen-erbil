@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Sawen Dizay | Medical Clinic | Erbil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+    <style>
+        :root {
+            --primary-teal: #0D9488;
+            --soft-cream: #FDF8F3;
+            --warm-white: #FFFBF7;
+            --deep-charcoal: #ff0000;
+            --gentle-gray: #6B7280;
+            --accent-gold: #F59E0B;
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--soft-cream);
+            color: var(--deep-charcoal);
+            overflow-x: hidden;
+        }
+
+
+        body[dir="rtl"] {
+            font-family: 'Noto Kufi Arabic', 'Plus Jakarta Sans', sans-serif;
+        }
+
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        /* Custom Selection */
+        ::selection {
+            background: var(--primary-teal);
+            color: white;
+        }
+
+
+        /* Glass Morphism Nav */
+        .nav-glass {
+            background: rgba(255, 251, 247, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(13, 148, 136, 0.1);
+        }
+
+
+        /* Language Dropdown */
+        .lang-dropdown {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+
+        .lang-dropdown.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+
+        /* Hero Gradient */
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--warm-white) 0%, #00c0b6 50%, var(--soft-cream) 100%);
+        }
+
+
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+
+        /* Pulse Ring */
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(1.3); opacity: 0; }
+        }
+
+
+        .pulse-ring::before {
+            content: '';
+            position: absolute;
+            inset: -10px;
+            border: 2px solid var(--primary-teal);
+            border-radius: 50%;
+            animation: pulse-ring 2s infinite;
+        }
+
+
+        /* Service Card Hover */
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -15px rgba(13, 148, 136, 0.2);
+        }
+
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+
+        /* Review Card */
+        .review-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f9fafb 100%);
+            border: 1px solid rgba(13, 148, 136, 0.1);
+        }
+
+
+        /* Button Hover Effects */
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+
+        .btn-primary:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+
+
+        /* Status Indicator */
+        .status-open {
+            background: #10B981;
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            animation: pulse-green 2s infinite;
+        }
+
+
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+
+        .status-closed {
+            background: #EF4444;
+            box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            animation: pulse-red 2s infinite;
+        }
+
+
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+
+        /* Timeline for Hours */
+        .hours-row {
+            transition: all 0.3s ease;
+        }
+
+
+        .hours-row:hover {
+            background: rgba(13, 148, 136, 0.05);
+            transform: translateX(5px);
+        }
+
+
+        body[dir="rtl"] .hours-row:hover {
+            transform: translateX(-5px);
+        }
+
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+
+        ::-webkit-scrollbar-track {
+            background: var(--soft-cream);
+        }
+
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-teal);
+            border-radius: 4px;
+        }
+
+
+        /* Loading Screen */
+        .loader {
+            position: fixed;
+            inset: 0;
+            background: var(--warm-white);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+
+        .loader-circle {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(13, 148, 136, 0.2);
+            border-top-color: var(--primary-teal);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+
+        /* Decorative Elements */
+        .blob {
+            position: absolute;
+            filter: blur(80px);
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+
+        /* Map Container */
+        .map-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+        }
+
+
+        .map-container::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 2px solid rgba(13, 148, 136, 0.2);
+            border-radius: 24px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="loader-circle mb-4"></div>
+        <div class="text-teal-600 font-semibold tracking-widest text-sm">DR. SAWEN DIZAY</div>
+    </div>
+
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 px-4 sm:px-6 lg:px-12">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+                <div class="w-12 h-12 bg-gradient-to-br from-teal-500 to-teal-700 rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <div class="hidden sm:block">
+                    <div class="font-bold text-lg leading-tight text-gray-800">Dr. Sawen Dizay</div>
+                    <div class="text-xs text-teal-600 font-medium" data-key="specialty">Medical Clinic</div>
+                </div>
+            </div>
+
+
+            <!-- Desktop Nav -->
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="#home" class="nav-link text-sm font-medium text-gray-600 hover:text-teal-600 transition-colors" data-key="nav_home">Home</a>
+                <a href="#about" class="nav-link text-sm font-medium text-gray-600 hover:text-teal-600 transition-colors" data-key="nav_about">About</a>
+                <a href="#services" class="nav-link text-sm font-medium text-gray-600 hover:text-teal-600 transition-colors" data-key="nav_services">Services</a>
+                <a href="#reviews" class="nav-link text-sm font-medium text-gray-600 hover:text-teal-600 transition-colors" data-key="nav_reviews">Reviews</a>
+                <a href="#contact" class="nav-link text-sm font-medium text-gray-600 hover:text-teal-600 transition-colors" data-key="nav_contact">Contact</a>
+            </div>
+
+
+            <!-- Right Side -->
+            <div class="flex items-center gap-4">
+                <!-- Language Selector -->
+                <div class="relative">
+                    <button onclick="toggleLang()" class="flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-teal-100 hover:border-teal-300 transition-all text-sm font-medium text-gray-700">
+                        <i class="fas fa-globe text-teal-600"></i>
+                        <span id="current-lang">EN</span>
+                        <i class="fas fa-chevron-down text-xs"></i>
+                    </button>
+                    <div id="lang-dropdown" class="lang-dropdown absolute top-full right-0 mt-2 bg-white rounded-xl shadow-xl border border-teal-100 p-2 min-w-[120px]">
+                        <button onclick="changeLanguage('en')" class="w-full text-left px-4 py-2 rounded-lg hover:bg-teal-50 text-sm font-medium transition-colors flex items-center gap-2">
+                            <span>🇺🇸</span> English
+                        </button>
+                        <button onclick="changeLanguage('ku')" class="w-full text-left px-4 py-2 rounded-lg hover:bg-teal-50 text-sm font-medium transition-colors flex items-center gap-2">
+                            <span>🇮🇶</span> Kurdî
+                        </button>
+                        <button onclick="changeLanguage('ar')" class="w-full text-left px-4 py-2 rounded-lg hover:bg-teal-50 text-sm font-medium transition-colors flex items-center gap-2">
+                            <span>🇸🇦</span> العربية
+                        </button>
+                    </div>
+                </div>
+
+
+                <!-- Call Button -->
+                <a href="tel:+9647518483857" class="hidden sm:flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-full font-semibold text-sm transition-all hover:scale-105 shadow-lg shadow-teal-200">
+                    <i class="fas fa-phone-alt"></i>
+                    <span data-key="call_now">Call Now</span>
+                </a>
+
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden w-10 h-10 flex items-center justify-center text-gray-700">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 lg:hidden">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-12">
+                <div class="font-bold text-xl text-gray-800">Dr. Sawen Dizay</div>
+                <button onclick="toggleMobileMenu()" class="w-10 h-10 flex items-center justify-center">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="flex flex-col gap-6">
+                <a href="#home" onclick="toggleMobileMenu()" class="text-2xl font-medium text-gray-800" data-key="nav_home">Home</a>
+                <a href="#about" onclick="toggleMobileMenu()" class="text-2xl font-medium text-gray-800" data-key="nav_about">About</a>
+                <a href="#services" onclick="toggleMobileMenu()" class="text-2xl font-medium text-gray-800" data-key="nav_services">Services</a>
+                <a href="#reviews" onclick="toggleMobileMenu()" class="text-2xl font-medium text-gray-800" data-key="nav_reviews">Reviews</a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="text-2xl font-medium text-gray-800" data-key="nav_contact">Contact</a>
+                <a href="tel:+9647518483857" class="mt-6 bg-teal-600 text-white text-center py-4 rounded-full font-semibold text-lg">
+                    <i class="fas fa-phone-alt mr-2"></i>
+                    <span data-key="call_now">Call Now</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center pt-20 overflow-hidden hero-gradient">
+        <!-- Decorative Blobs -->
+        <div class="blob w-96 h-96 bg-teal-200 rounded-full top-20 -left-20"></div>
+        <div class="blob w-64 h-64 bg-amber-200 rounded-full bottom-20 right-20"></div>
+
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 w-full relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Content -->
+                <div class="space-y-8 reveal active">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-teal-100 text-teal-700 text-sm font-semibold shadow-sm">
+                        <span class="w-2 h-2 rounded-full bg-teal-500 animate-pulse"></span>
+                        <span data-key="hero_badge">Trusted Medical Care in Erbil</span>
+                    </div>
+
+
+                    <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 leading-[1.1]">
+                        <span data-key="hero_title_1">Compassionate</span>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-teal-400" data-key="hero_title_2">Healthcare</span>
+                        <br>
+                        <span data-key="hero_title_3">for Everyone</span>
+                    </h1>
+
+
+                    <p class="text-lg text-gray-600 max-w-lg leading-relaxed" data-key="hero_desc">
+                        Professional medical services with a personal touch. Located on Koya Road, Erbil, we provide quality care you can trust.
+                    </p>
+
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="tel:+9647518483857" class="inline-flex items-center justify-center gap-2 bg-white text-teal-700 border-2 border-teal-100 px-8 py-4 rounded-full font-semibold text-lg hover:border-teal-300 hover:bg-teal-50 transition-all">
+                            <i class="fas fa-phone-alt"></i>
+                            <span>0751 848 3857</span>
+                        </a>
+                    </div>
+
+
+                    <!-- Trust Indicators -->
+                    <div class="flex items-center gap-6 pt-4">
+                        <div class="flex -space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-teal-100 border-2 border-white flex items-center justify-center text-teal-600 text-xs font-bold">5.0</div>
+                            <div class="w-10 h-10 rounded-full bg-amber-100 border-2 border-white flex items-center justify-center text-amber-600 text-xs"><i class="fas fa-star"></i></div>
+                            <div class="w-10 h-10 rounded-full bg-rose-100 border-2 border-white flex items-center justify-center text-rose-600 text-xs"><i class="fas fa-heart"></i></div>
+                        </div>
+                        <div class="text-sm text-gray-600">
+                            <span class="font-bold text-gray-900">5.0 Rating</span>
+                            <span data-key="reviews_count">• 2 Reviews</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Image -->
+                <div class="relative float-animation reveal active">
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl">
+                        <img src=https://698dd18cb7349d44aaf28826.imgix.net/dr-sawen-dizay.jpg alt="Doctor Consultation" class="w-full h-[600px] object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-teal-900/20 to-transparent"></div>
+                    </div>
+
+
+                    <!-- Floating Card -->
+                    <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl border border-teal-50 max-w-xs">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-12 h-12 rounded-full bg-teal-100 flex items-center justify-center text-teal-600 text-xl">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-gray-900" data-key="experience_title">Professional Care</div>
+                                <div class="text-sm text-gray-500" data-key="experience_subtitle">Years of Experience</div>
+                            </div>
+                        </div>
+                        <div class="text-sm text-gray-600" data-key="experience_desc">
+                            Committed to providing the highest standard of medical care to our patients.
+                        </div>
+                    </div>
+
+
+                    <!-- Status Badge -->
+                    <div class="absolute top-6 right-6 bg-white/90 backdrop-blur px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
+                        <div id="hero-status-dot" class="w-3 h-3 rounded-full status-open"></div>
+                        <span id="hero-status-text" class="text-sm font-semibold text-gray-700" data-key="status_open">Open Now</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="order-2 lg:order-1 reveal">
+                    <div class="relative">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-teal-100 to-amber-100 rounded-3xl opacity-50"></div>
+                        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80" alt="Medical Clinic" class="relative rounded-3xl shadow-2xl w-full h-[500px] object-cover">
+
+
+                        <!-- Stats Overlay -->
+                        <div class="absolute -bottom-8 -right-8 bg-white p-6 rounded-2xl shadow-xl border border-teal-50">
+                            <div class="text-center">
+                                <div class="text-4xl font-bold text-teal-600">5.0</div>
+                                <div class="flex text-amber-400 text-sm justify-center my-1">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <div class="text-sm text-gray-500" data-key="google_rating">Google Rating</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="order-1 lg:order-2 reveal">
+                    <span class="text-teal-600 font-bold tracking-widest text-sm uppercase mb-2 block" data-key="about_label">About Us</span>
+                    <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight" data-key="about_title">
+                        Dedicated to Your <span class="text-teal-600">Health</span> & Well-being
+                    </h2>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-6" data-key="about_desc1">
+                        Dr. Sawen Dizay Medical Clinic is located on Koya Road in Erbil, providing accessible and professional healthcare services to the local community. Our clinic is designed with patient comfort and care as the top priority.
+                    </p>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-8" data-key="about_desc2">
+                        We believe in building lasting relationships with our patients through compassionate care, clear communication, and medical excellence. Whether you need a routine check-up or specialized consultation, we're here to help.
+                    </p>
+
+
+                    <div class="grid sm:grid-cols-2 gap-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-teal-50 flex items-center justify-center text-teal-600 text-xl flex-shrink-0">
+                                <i class="fas fa-user-md"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1" data-key="feature1_title">Expert Care</h4>
+                                <p class="text-sm text-gray-600" data-key="feature1_desc">Professional medical attention</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 text-xl flex-shrink-0">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1" data-key="feature2_title">Convenient Hours</h4>
+                                <p class="text-sm text-gray-600" data-key="feature2_desc">Open 6 days a week</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-rose-50 flex items-center justify-center text-rose-600 text-xl flex-shrink-0">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1" data-key="feature3_title">Patient First</h4>
+                                <p class="text-sm text-gray-600" data-key="feature3_desc">Your health is our priority</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 text-xl flex-shrink-0">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1" data-key="feature4_title">Easy to Find</h4>
+                                <p class="text-sm text-gray-600" data-key="feature4_desc">Koya Road, Erbil</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-gradient-to-b from-white to-teal-50/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <span class="text-teal-600 font-bold tracking-widest text-sm uppercase mb-2 block" data-key="services_label">Our Services</span>
+                <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-4" data-key="services_title">Comprehensive Medical Care</h2>
+                <p class="text-gray-600 text-lg" data-key="services_desc">
+                    We offer a range of medical services to address your health needs with professionalism and care.
+                </p>
+            </div>
+
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="service-card bg-white p-8 rounded-3xl shadow-lg border border-gray-100 reveal">
+                    <div class="service-icon w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-white text-2xl mb-6 transition-transform duration-300">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3" data-key="service1_title">General Consultation</h3>
+                    <p class="text-gray-600 leading-relaxed" data-key="service1_desc">
+                        Comprehensive health assessments and medical consultations for all age groups.
+                    </p>
+                </div>
+
+
+                <!-- Service 2 -->
+                <div class="service-card bg-white p-8 rounded-3xl shadow-lg border border-gray-100 reveal">
+                    <div class="service-icon w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white text-2xl mb-6 transition-transform duration-300">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3" data-key="service2_title">Health Checkups</h3>
+                    <p class="text-gray-600 leading-relaxed" data-key="service2_desc">
+                        Regular health screenings and preventive care to keep you in optimal condition.
+                    </p>
+                </div>
+
+
+                <!-- Service 3 -->
+                <div class="service-card bg-white p-8 rounded-3xl shadow-lg border border-gray-100 reveal">
+                    <div class="service-icon w-16 h-16 rounded-2xl bg-gradient-to-br from-rose-400 to-rose-600 flex items-center justify-center text-white text-2xl mb-6 transition-transform duration-300">
+                        <i class="fas fa-file-medical"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3" data-key="service3_title">Medical Reports</h3>
+                    <p class="text-gray-600 leading-relaxed" data-key="service3_desc">
+                        Detailed medical documentation and health reports for your records.
+                    </p>
+                </div>
+
+
+                <!-- Service 4 -->
+                <div class="service-card bg-white p-8 rounded-3xl shadow-lg border border-gray-100 reveal">
+                    <div class="service-icon w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-400 to-indigo-600 flex items-center justify-center text-white text-2xl mb-6 transition-transform duration-300">
+                        <i class="fas fa-pills"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3" data-key="service4_title">Treatment Plans</h3>
+                    <p class="text-gray-600 leading-relaxed" data-key="service4_desc">
+                        Personalized treatment strategies tailored to your specific health needs.
+                    </p>
+                </div>
+
+
+                <!-- Service 5 -->
+                <div class="service-card bg-white p-8 rounded-3xl shadow-lg border border-gray-100 reveal">
+                    <div class="service-icon w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white text-2xl mb-6 transition-transform duration-300">
+                        <i class="fas fa-ambulance"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3" data-key="service5_title">Urgent Care</h3>
+                    <p class="text-gray-600 leading-relaxed" data-key="service5_desc">
+                        Prompt attention for non-emergency medical situations requiring immediate care.
+                    </p>
+                </div>
+
+
+                <!-- Service 6 -->
+                <div class="service-card bg-white p-8 rounded-3xl shadow-lg border border-gray-100 reveal">
+                    <div class="service-icon w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-400 to-cyan-600 flex items-center justify-center text-white text-2xl mb-6 transition-transform duration-300">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3" data-key="service6_title">Follow-up Care</h3>
+                    <p class="text-gray-600 leading-relaxed" data-key="service6_desc">
+                        Continuous monitoring and support throughout your recovery journey.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="py-24 bg-white relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-teal-50/30 to-transparent"></div>
+
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <span class="text-teal-600 font-bold tracking-widest text-sm uppercase mb-2 block" data-key="reviews_label">Testimonials</span>
+                <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-4" data-key="reviews_title">What Patients Say</h2>
+                <p class="text-gray-600 text-lg" data-key="reviews_desc">
+                    Real reviews from our valued patients. Your trust is our greatest achievement.
+                </p>
+            </div>
+
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Review 1 -->
+                <div class="review-card p-8 rounded-3xl reveal">
+                    <div class="flex text-amber-400 text-lg mb-4">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-700 text-lg leading-relaxed mb-6 italic">
+                        "A very good and nice doctor. The clinic is a very nice place. Very nice service."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-white font-bold">
+                            KD
+                        </div>
+                        <div>
+                            <div class="font-bold text-gray-900">Khdir Daro</div>
+                            <div class="text-sm text-gray-500">8 months ago</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Review 2 -->
+                <div class="review-card p-8 rounded-3xl reveal">
+                    <div class="flex text-amber-400 text-lg mb-4">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-700 text-lg leading-relaxed mb-6 italic">
+                        "Excellent medical care and professional service. Highly recommended for anyone seeking quality healthcare in Erbil."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white font-bold">
+                            LK
+                        </div>
+                        <div>
+                            <div class="font-bold text-gray-900">Lawen Kamaran</div>
+                            <div class="text-sm text-gray-500">Local Guide • 1 year ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>  
+
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-gradient-to-b from-white to-teal-50/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="grid lg:grid-cols-2 gap-16">
+                <!-- Contact Info -->
+                <div class="reveal">
+                    <span class="text-teal-600 font-bold tracking-widest text-sm uppercase mb-2 block" data-key="contact_label">Contact Us</span>
+                    <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6" data-key="contact_title">Visit Our Clinic</h2>
+                    <p class="text-gray-600 text-lg mb-8" data-key="contact_desc">
+                        We're here to help. Reach out to schedule an appointment or visit us directly at our clinic on Koya Road.
+                    </p>
+
+
+                    <div class="space-y-6">
+                        <!-- Address -->
+                        <div class="flex items-start gap-4 p-4 rounded-2xl bg-white shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                            <div class="w-14 h-14 rounded-xl bg-teal-50 flex items-center justify-center text-teal-600 text-xl flex-shrink-0">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1" data-key="address_title">Address</h4>
+                                <p class="text-gray-600">52RH+JGQ, Koya Rd, Erbil, Erbil Governorate</p>
+                                <a href="https://maps.app.goo.gl/1FMUkf96R9fbXAS47" target="_blank" class="text-teal-600 text-sm font-semibold mt-1 inline-flex items-center gap-1 hover:underline">
+                                    <span data-key="get_directions">Get Directions</span>
+                                    <i class="fas fa-external-link-alt text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+
+
+                        <!-- Phone -->
+                        <div class="flex items-start gap-4 p-4 rounded-2xl bg-white shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                            <div class="w-14 h-14 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 text-xl flex-shrink-0">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1" data-key="phone_title">Phone</h4>
+                                <a href="tel:+9647518483857" class="text-2xl font-bold text-gray-800 hover:text-teal-600 transition-colors">0751 848 3857</a>
+                                <p class="text-gray-500 text-sm mt-1" data-key="call_anytime">Call to book appointment</p>
+                            </div>
+                        </div>
+
+
+                        <!-- Hours -->
+                        <div class="flex items-start gap-4 p-4 rounded-2xl bg-white shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                            <div class="w-14 h-14 rounded-xl bg-rose-50 flex items-center justify-center text-rose-600 text-xl flex-shrink-0">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-gray-900 mb-3" data-key="hours_title">Opening Hours</h4>
+                                <div class="space-y-2 text-sm">
+                                    <div class="hours-row flex justify-between py-2 px-3 rounded-lg">
+                                        <span class="text-gray-600" data-key="day_wed">Wednesday</span>
+                                        <span class="font-semibold text-gray-900">2 PM - 8 PM</span>
+                                    </div>
+                                    <div class="hours-row flex justify-between py-2 px-3 rounded-lg">
+                                        <span class="text-gray-600" data-key="day_thu">Thursday</span>
+                                        <span class="font-semibold text-red-500" data-key="closed">Closed</span>
+                                    </div>
+                                    <div class="hours-row flex justify-between py-2 px-3 rounded-lg">
+                                        <span class="text-gray-600" data-key="day_fri">Friday</span>
+                                        <span class="font-semibold text-red-500" data-key="closed">Closed</span>
+                                    </div>
+                                    <div class="hours-row flex justify-between py-2 px-3 rounded-lg bg-teal-50/50 border border-teal-100">
+                                        <span class="text-teal-700 font-medium" data-key="day_sat">Saturday</span>
+                                        <span class="font-bold text-teal-700">2 PM - 8:30 PM</span>
+                                    </div>
+                                    <div class="hours-row flex justify-between py-2 px-3 rounded-lg">
+                                        <span class="text-gray-600" data-key="day_sun">Sunday</span>
+                                        <span class="font-semibold text-gray-900">2 PM - 8 PM</span>
+                                    </div>
+                                    <div class="hours-row flex justify-between py-2 px-3 rounded-lg">
+                                        <span class="text-gray-600" data-key="day_mon">Monday</span>
+                                        <span class="font-semibold text-gray-900">2 PM - 8 PM</span>
+                                    </div>
+                                    <div class="hours-row flex justify-between py-2 px-3 rounded-lg">
+                                        <span class="text-gray-600" data-key="day_tue">Tuesday</span>
+                                        <span class="font-semibold text-gray-900">2 PM - 8 PM</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Instagram -->
+                        <a href="https://www.instagram.com/dr.sawen_dizay/?hl=en" target="_blank" class="flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-100 hover:shadow-md transition-shadow group">
+                            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xl flex-shrink-0 group-hover:scale-110 transition-transform">
+                                <i class="fab fa-instagram"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1" data-key="follow_us">Follow Us</h4>
+                                <p class="text-gray-600 text-sm">@dr.sawendizay</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+
+                <!-- Map -->
+                <div class="reveal">
+                    <div class="map-container h-full min-h-[400px] bg-gray-100 relative">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3213.1234567890123!2d44.0123456789!3d36.1234567890!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDA3JzI0LjQiTiA0NMKwMDAnNDQuNCJF!5e0!3m2!1sen!2siq!4v1234567890123!5m2!1sen!2siq" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0; filter: grayscale(20%) contrast(1.1);" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            class="absolute inset-0">
+                        </iframe>
+
+
+                        <!-- Map Overlay Card -->
+                        <div class="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur p-4 rounded-2xl shadow-lg border border-teal-100">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-teal-600">
+                                    <i class="fas fa-map-pin"></i>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-gray-900 text-sm">Dr. Sawen Dizay Clinic</div>
+                                    <div class="text-xs text-gray-500">Koya Road, Erbil</div>
+                                </div>
+                                <a href="https://maps.app.goo.gl/1FMUkf96R9fbXAS47" target="_blank" class="ml-auto bg-teal-600 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-teal-700 transition-colors">
+                                    <i class="fas fa-directions mr-1"></i>
+                                    <span class="hidden sm:inline" data-key="navigate">Navigate</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-teal-400 to-teal-600 rounded-xl flex items-center justify-center text-white">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-lg">Dr. Sawen Dizay</div>
+                        <div class="text-xs text-gray-400" data-key="footer_tagline">Medical Clinic</div>
+                    </div>
+                </div>
+
+
+                <div class="flex items-center gap-6 text-sm text-gray-400">
+                    <span>© 2026 Dr. Sawen Dizay</span>
+                    <span class="hidden sm:inline">•</span>
+                    <span class="hidden sm:inline" data-key="rights">All rights reserved</span>
+                </div>
+
+
+                <div class="flex items-center gap-4">
+                    <a href="tel:+9647518483857" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-teal-600 transition-colors">
+                        <i class="fas fa-phone-alt"></i>
+                    </a>
+                    <a href="https://www.instagram.com/dr.sawen_dizay/?hl=en" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-pink-600 transition-colors">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://maps.app.goo.gl/1FMUkf96R9fbXAS47" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-green-600 transition-colors">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Sticky Call Button (Mobile) -->
+    <a href="tel:+9647518483857" class="fixed bottom-6 right-6 w-14 h-14 bg-teal-600 text-white rounded-full shadow-2xl flex items-center justify-center text-xl z-40 lg:hidden hover:scale-110 transition-transform pulse-ring">
+        <i class="fas fa-phone-alt"></i>
+    </a>
+
+
+    <script>
+        // Translations
+        const translations = {
+            en: {
+                specialty: "Medical Clinic",
+                nav_home: "Home",
+                nav_about: "About",
+                nav_services: "Services",
+                nav_reviews: "Reviews",
+                nav_contact: "Contact",
+                call_now: "Call Now",
+                hero_badge: "Trusted Medical Care in Erbil",
+                hero_title_1: "Compassionate",
+                hero_title_2: "Healthcare",
+                hero_title_3: "for Everyone",
+                hero_desc: "Professional medical services with a personal touch. Located on Koya Road, Erbil, we provide quality care you can trust.",
+                book_appointment: "Book Appointment",
+                reviews_count: "• 2 Reviews",
+                status_open: "Open Now",
+                status_closed: "Closed Now",
+                about_label: "About Us",
+                about_title: "Dedicated to Your Health & Well-being",
+                about_desc1: "Dr. Sawen Dizay Medical Clinic is located on Koya Road in Erbil, providing accessible and professional healthcare services to the local community. Our clinic is designed with patient comfort and care as the top priority.",
+                about_desc2: "We believe in building lasting relationships with our patients through compassionate care, clear communication, and medical excellence. Whether you need a routine check-up or specialized consultation, we're here to help.",
+                experience_title: "Professional Care",
+                experience_subtitle: "Years of Experience",
+                experience_desc: "Committed to providing the highest standard of medical care to our patients.",
+                feature1_title: "Expert Care",
+                feature1_desc: "Professional medical attention",
+                feature2_title: "Convenient Hours",
+                feature2_desc: "Open 6 days a week",
+                feature3_title: "Patient First",
+                feature3_desc: "Your health is our priority",
+                feature4_title: "Easy to Find",
+                feature4_desc: "Koya Road, Erbil",
+                services_label: "Our Services",
+                services_title: "Comprehensive Medical Care",
+                services_desc: "We offer a range of medical services to address your health needs with professionalism and care.",
+                service1_title: "General Consultation",
+                service1_desc: "Comprehensive health assessments and medical consultations for all age groups.",
+                service2_title: "Health Checkups",
+                service2_desc: "Regular health screenings and preventive care to keep you in optimal condition.",
+                service3_title: "Medical Reports",
+                service3_desc: "Detailed medical documentation and health reports for your records.",
+                service4_title: "Treatment Plans",
+                service4_desc: "Personalized treatment strategies tailored to your specific health needs.",
+                service5_title: "Urgent Care",
+                service5_desc: "Prompt attention for non-emergency medical situations requiring immediate care.",
+                service6_title: "Follow-up Care",
+                service6_desc: "Continuous monitoring and support throughout your recovery journey.",
+                reviews_label: "Testimonials",
+                reviews_title: "What Patients Say",
+                reviews_desc: "Real reviews from our valued patients. Your trust is our greatest achievement.",
+                view_reviews: "View All Reviews on Google",
+                contact_label: "Contact Us",
+                contact_title: "Visit Our Clinic",
+                contact_desc: "We're here to help. Reach out to schedule an appointment or visit us directly at our clinic on Koya Road.",
+                address_title: "Address",
+                get_directions: "Get Directions",
+                phone_title: "Phone",
+                call_anytime: "Call to book appointment",
+                hours_title: "Opening Hours",
+                day_wed: "Wednesday",
+                day_thu: "Thursday",
+                day_fri: "Friday",
+                day_sat: "Saturday",
+                day_sun: "Sunday",
+                day_mon: "Monday",
+                day_tue: "Tuesday",
+                closed: "Closed",
+                follow_us: "Follow Us",
+                navigate: "Navigate",
+                footer_tagline: "Medical Clinic",
+                rights: "All rights reserved",
+                google_rating: "Google Rating"
+            },
+            ku: {
+                specialty: "نەخۆشخانەی پزیشکی",
+                nav_home: "سەرەکی",
+                nav_about: "دەربارە",
+                nav_services: "خزمەتگوزاریەکان",
+                nav_reviews: "بۆچوونەکان",
+                nav_contact: "پەیوەندی",
+                call_now: "پەیوەندی بکە",
+                hero_badge: "چاودێری پزیشکی متمانەپێکراو لە هەولێر",
+                hero_title_1: "چاودێری",
+                hero_title_2: "تەندروستی",
+                hero_title_3: "بەسۆز",
+                hero_desc: "خزمەتگوزاری پزیشکی پیشەگەرانە بە چێژێکی کەسی. لە ڕێی کۆیە، هەولێر، ئێمە چاودێرییەکی باش دابین دەکەین کە بتوانێت متمانە پێ بکرێت.",
+                book_appointment: "کات دیاری بکە",
+                reviews_count: "• ٢ بۆچوون",
+                status_open: "کراوەیە",
+                status_closed: "داخراوە",
+                about_label: "دەربارەی ئێمە",
+                about_title: "تایبەت بە تەندروستی و باشیی ئێوە",
+                about_desc1: "نەخۆشخانەی پزیشکی دکتۆر ساوێن دیزای لە ڕێی کۆیە لە هەولێر، خزمەتگوزاری تەندروستی پیشەگەرانە و لەبەردەست بۆ کۆمەڵگەی ناوخۆ دابین دەکات.",
+                about_desc2: "ئێمە باوەڕمان وایە پەیوەندی بەردەوام لەگەڵ نەخۆشەکانمان دروست بکەین بە ڕێگەی چاودێری بەسۆز، پەیوەندی ڕوون، و نایابی پزیشکی.",
+                experience_title: "چاودێری پیشەگەرانە",
+                experience_subtitle: "ساڵانێک ئەزموون",
+                experience_desc: "تایبەت بە دابینکردن بەرزترین ئاستی چاودێری پزیشکی بۆ نەخۆشەکانمان.",
+                feature1_title: "چاودێری شارەزا",
+                feature1_desc: "تێبینی پزیشکی پیشەگەرانە",
+                feature2_title: "کاتێکی گونجاو",
+                feature2_desc: "٦ ڕۆژ لە هەفتە کراوەیە",
+                feature3_title: "نەخۆش لە پێشینە",
+                feature3_desc: "تەندروستی ئێوە ئەولەویەتی ئێمەیە",
+                feature4_title: "ئاسانە بدۆزیتەوە",
+                feature4_desc: "ڕێی کۆیە، هەولێر",
+                services_label: "خزمەتگوزاریەکانمان",
+                services_title: "چاودێری پزیشکی گشتگیر",
+                services_desc: "ئێمە کۆمەڵێک خزمەتگوزاری پزیشکی پێشکەش دەکەین بۆ چارەسەری پێداویستیەکانی تەندروستی ئێوە بە پیشەگەری و چاودێری.",
+                service1_title: "ئامادەکردنی گشتی",
+                service1_desc: "هەڵسەنگاندنی تەندروستی گشتگیر و ئامادەکردنی پزیشکی بۆ هەموو توێژەکانی تەمەن.",
+                service2_title: "پشکنینی تەندروستی",
+                service2_desc: "پشکنینی تەندروستی بەردەوام و چاودێری پێشگیری بۆ پاراستنی ئێوە لە باشترین حاڵەت.",
+                service3_title: "ڕاپۆرتی پزیشکی",
+                service3_desc: "بەڵگەنامەی پزیشکی ورد و ڕاپۆرتی تەندروستی بۆ تۆمارەکانی ئێوە.",
+                service4_title: "پلانی چارەسەر",
+                service4_desc: "ستراتیژی چارەسەری تایبەت بە پێداویستیەکانی تایبەتی تەندروستی ئێوە.",
+                service5_title: "چاودێری فریاگوزاری",
+                service5_desc: "تێبینی خێرا بۆ دۆخی پزیشکی نا-فریاگوزاری کە پێویستیان بە چاودێری فوری هەیە.",
+                service6_title: "چاودێری دوای چارەسەر",
+                service6_desc: "چاودێری بەردەوام و پشتگیری لە ماوەی گەڕانەوەی ئێوە.",
+                reviews_label: "بۆچوونەکان",
+                reviews_title: "نەخۆشەکان چی دەڵێن",
+                reviews_desc: "بۆچوونی ڕاستەقینە لە نەخۆشە بەهایدارەکانمان. متمانەی ئێوە گەورەترین سەرکەوتنمانە.",
+                view_reviews: "هەموو بۆچوونەکان ببینە لە گووگڵ",
+                contact_label: "پەیوەندیمان پێوە بکە",
+                contact_title: "سەردانی نەخۆشخانەکەمان بکە",
+                contact_desc: "ئێمە ئێرەیین بۆ یارمەتیدان. پەیوەندی بکە بۆ دیاریکردنی کات یان سەردانی نەخۆشخانەکەمان بکە لە ڕێی کۆیە.",
+                address_title: "ناونیشان",
+                get_directions: "ڕێنمایی وەرگرە",
+                phone_title: "تەلەفۆن",
+                call_anytime: "پەیوەندی بکە بۆ دیاریکردنی کات",
+                hours_title: "کاتەکانی کردنەوە",
+                day_wed: "چوارشەممە",
+                day_thu: "پێنجشەممە",
+                day_fri: "هەینی",
+                day_sat: "شەممە",
+                day_sun: "یەکشەممە",
+                day_mon: "دووشەممە",
+                day_tue: "سێشەممە",
+                closed: "داخراوە",
+                follow_us: "شوێنمان بکەوە",
+                navigate: "ڕێنمایی",
+                footer_tagline: "نەخۆشخانەی پزیشکی",
+                rights: "هەموو مافەکان پارێزراون",
+                google_rating: "هەڵسەنگاندنی گووگڵ"
+            },
+            ar: {
+                specialty: "عيادة طبية",
+                nav_home: "الرئيسية",
+                nav_about: "من نحن",
+                nav_services: "الخدمات",
+                nav_reviews: "الآراء",
+                nav_contact: "اتصل بنا",
+                call_now: "اتصل الآن",
+                hero_badge: "رعاية طبية موثوقة في أربيل",
+                hero_title_1: "رعاية",
+                hero_title_2: "صحية",
+                hero_title_3: "متميزة",
+                hero_desc: "خدمات طبية احترافية بلمسة شخصية. تقع في طريق كويا، أربيل، نقدم رعاية عالية الجودة يمكنك الوثوق بها.",
+                book_appointment: "حجز موعد",
+                reviews_count: "• ٢ مراجعة",
+                status_open: "مفتوح الآن",
+                status_closed: "مغلق الآن",
+                about_label: "من نحن",
+                about_title: "مكرسون لصحتك ورفاهيتك",
+                about_desc1: "تقع عيادة الدكتورة ساوين ديزاي في طريق كويا في أربيل، وتقدم خدمات رعاية صحية احترافية ومتاحة للمجتمع المحلي.",
+                about_desc2: "نؤمن ببناء علاقات دائمة مع مرضانا من خلال الرعاية المشفقة، والتواصل الواضح، والتميز الطبي. سواء كنت بحاجة إلى فحص روتيني أو استشارة متخصصة، نحن هنا للمساعدة.",
+                experience_title: "رعاية احترافية",
+                experience_subtitle: "سنوات من الخبرة",
+                experience_desc: "ملتزمون بتقديم أعلى معايير الرعاية الطبية لمرضانا.",
+                feature1_title: "رعاية خبيرة",
+                feature1_desc: "اهتمام طبي احترافي",
+                feature2_title: "ساعات مناسبة",
+                feature2_desc: "مفتوح ٦ أيام في الأسبوع",
+                feature3_title: "المريض أولاً",
+                feature3_desc: "صحتك هي أولويتنا",
+                feature4_title: "سهل الوصول",
+                feature4_desc: "طريق كويا، أربيل",
+                services_label: "خدماتنا",
+                services_title: "رعاية طبية شاملة",
+                services_desc: "نقدم مجموعة من الخدمات الطبية لتلبية احتياجاتك الصحية باحترافية ورعاية.",
+                service1_title: "استشارة عامة",
+                service1_desc: "تقييمات صحية شاملة واستشارات طبية لجميع الفئات العمرية.",
+                service2_title: "فحوصات صحية",
+                service2_desc: "فحوصات صحية منتظمة ورعاية وقائية للحفاظ على حالتك المثلى.",
+                service3_title: "تقارير طبية",
+                service3_desc: "توثيق طبي مفصل وتقارير صحية لسجلاتك.",
+                service4_title: "خطط علاج",
+                service4_desc: "استراتيجيات علاج مخصصة حسب احتياجاتك الصحية الخاصة.",
+                service5_title: "رعاية عاجلة",
+                service5_desc: "اهتمام فوري لحالات طبية غير طارئة تتطلب رعاية فورية.",
+                service6_title: "متابعة العلاج",
+                service6_desc: "مراقبة مستمرة ودعم طوال رحلة شفائك.",
+                reviews_label: "الشهادات",
+                reviews_title: "ماذا يقول المرضى",
+                reviews_desc: "آراء حقيقية من مرضانا الكرام. ثقتكم هي أعظم إنجاز لنا.",
+                view_reviews: "عرض جميع المراجعات على جوجل",
+                contact_label: "اتصل بنا",
+                contact_title: "زيارة عيادتنا",
+                contact_desc: "نحن هنا للمساعدة. تواصل معنا لتحديد موعد أو قم بزيارتنا مباشرة في عيادتنا على طريق كويا.",
+                address_title: "العنوان",
+                get_directions: "احصل على الاتجاهات",
+                phone_title: "الهاتف",
+                call_anytime: "اتصل لحجز موعد",
+                hours_title: "ساعات العمل",
+                day_wed: "الأربعاء",
+                day_thu: "الخميس",
+                day_fri: "الجمعة",
+                day_sat: "السبت",
+                day_sun: "الأحد",
+                day_mon: "الاثنين",
+                day_tue: "الثلاثاء",
+                closed: "مغلق",
+                follow_us: "تابعنا",
+                navigate: "التنقل",
+                footer_tagline: "عيادة طبية",
+                rights: "جميع الحقوق محفوظة",
+                google_rating: "تقييم جوجل"
+            }
+        };
+
+
+        let currentLang = 'en';
+
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Remove loader
+            setTimeout(() => {
+                gsap.to('#loader', {
+                    opacity: 0,
+                    duration: 0.5,
+                    onComplete: () => {
+                        document.getElementById('loader').style.display = 'none';
+                    }
+                });
+            }, 1000);
+
+
+            // Check open status
+            checkOpenStatus();
+
+
+            // Scroll animations
+            initScrollAnimations();
+
+
+            // Navbar scroll effect
+            window.addEventListener('scroll', handleNavScroll);
+        });
+
+
+        function toggleLang() {
+            document.getElementById('lang-dropdown').classList.toggle('active');
+        }
+
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            document.getElementById('current-lang').textContent = lang.toUpperCase();
+            document.getElementById('lang-dropdown').classList.remove('active');
+
+
+            // Update text content
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if(translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+
+
+            // Update RTL
+            if(lang === 'ar' || lang === 'ku') {
+                document.body.setAttribute('dir', 'rtl');
+                document.body.classList.add('font-arabic');
+            } else {
+                document.body.setAttribute('dir', 'ltr');
+                document.body.classList.remove('font-arabic');
+            }
+
+
+            // Re-check status with new language
+            checkOpenStatus();
+        }
+
+
+        function checkOpenStatus() {
+            const now = new Date();
+            const day = now.getDay(); // 0=Sun, 4=Thu, 5=Fri, 6=Sat
+            const hour = now.getHours();
+
+
+            let isOpen = false;
+
+
+            // Thursday (4) and Friday (5) closed
+            if(day === 4 || day === 5) {
+                isOpen = false;
+            } else if(day === 6) { // Saturday 2 PM - 8:30 PM (14:00 - 20:30)
+                isOpen = hour >= 14 && hour < 20;
+            } else { // Sun, Mon, Tue, Wed 2 PM - 8 PM (14:00 - 20:00)
+                isOpen = hour >= 14 && hour < 20;
+            }
+
+
+            const statusDot = document.getElementById('hero-status-dot');
+            const statusText = document.getElementById('hero-status-text');
+
+
+            if(isOpen) {
+                statusDot.className = 'w-3 h-3 rounded-full status-open';
+                statusText.textContent = translations[currentLang].status_open;
+                statusText.className = 'text-sm font-semibold text-green-700';
+            } else {
+                statusDot.className = 'w-3 h-3 rounded-full status-closed';
+                statusText.textContent = translations[currentLang].status_closed;
+                statusText.className = 'text-sm font-semibold text-red-600';
+            }
+        }
+
+
+        function handleNavScroll() {
+            const nav = document.getElementById('navbar');
+            if(window.scrollY > 50) {
+                nav.classList.add('nav-glass');
+            } else {
+                nav.classList.remove('nav-glass');
+            }
+        }
+
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('translate-x-full');
+        }
+
+
+        function initScrollAnimations() {
+            gsap.registerPlugin(ScrollTrigger);
+
+
+            // Reveal animations
+            gsap.utils.toArray('.reveal').forEach(elem => {
+                gsap.fromTo(elem, 
+                    { opacity: 0, y: 30 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.8,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: elem,
+                            start: 'top 85%',
+                            toggleActions: 'play none none reverse'
+                        }
+                    }
+                );
+            });
+        }
+
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if(!e.target.closest('.relative')) {
+                document.getElementById('lang-dropdown').classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
+
+
